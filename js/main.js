@@ -56,7 +56,6 @@ SmallImg[0].classList.add('actual');
 
 //funzionamento dei bottoni scorrimento
 function Down(){
-    clearInterval(AutoStop);
     if(actual==SmallImg.length-1){
         SmallImg[actual].classList.remove('actual');
         Bigs[bigAc].classList.remove('big-actual');
@@ -76,7 +75,6 @@ function Down(){
     BigWindow();
 }
 function Up(){
-    clearInterval(AutoStop);
     if(actual==0){
         Bigs[bigAc].classList.remove('big-actual');
         SmallImg[actual].classList.remove('actual');
