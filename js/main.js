@@ -23,19 +23,24 @@ const images = [
 ];
 const LeftCar=document.querySelector('.left-carousel');
 const RightCar=document.querySelector('.right-carousel');
-LeftCar.innerHTML=`
+for (let index = 0; index < images.length; index++) {
+    LeftCar.innerHTML+=`
         <div class="big-image">
-            <img class="big-img" src="img/01.webp" alt="">
+            <img class="big-img" src="${images[index].image}" alt="">
             <div class="rel-text">
                 <h2 class="title">
-                     Marvel's Spiderman Miles Morales
+                    ${images[index].title}
                 </h2>
                 <p class="description">
-                    Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.
+                ${images[index].text}
                 </p>
             </div>
         </div>
-`
+` 
+}
+let bigAc=0;
+let Bigs=document.querySelectorAll('.big-image');
+Bigs[0].classList.add('big-actual')
 
 for (let index = 0; index < images.length; index++) {
     const element = images[index];
@@ -51,27 +56,41 @@ SmallImg[0].classList.add('actual');
 
 //funzionamento dei bottoni scorrimento
 function Down(){
+    clearInterval(AutoStop);
     if(actual==SmallImg.length-1){
         SmallImg[actual].classList.remove('actual');
+        Bigs[bigAc].classList.remove('big-actual');
+        bigAc=0;
         actual=0;
         SmallImg[actual].classList.add('actual');
+        Bigs[bigAc].classList.add('big-actual');
 
     }else{
+        Bigs[bigAc].classList.remove('big-actual');
         SmallImg[actual].classList.remove('actual');
-        actual+=1,
+        actual+=1;
+        bigAc+=1;
         SmallImg[actual].classList.add('actual');
+        Bigs[bigAc].classList.add('big-actual');
     }
     BigWindow();
 }
 function Up(){
+    clearInterval(AutoStop);
     if(actual==0){
+        Bigs[bigAc].classList.remove('big-actual');
         SmallImg[actual].classList.remove('actual');
         actual=SmallImg.length-1;
+        bigAc=Bigs.length-1;
+        Bigs[bigAc].classList.add('big-actual');
         SmallImg[actual].classList.add('actual');
 
     }else{
+        Bigs[bigAc].classList.remove('big-actual');
         SmallImg[actual].classList.remove('actual');
-        actual-=1,
+        actual-=1;
+        bigAc-=1;
+        Bigs[bigAc].classList.add('big-actual');
         SmallImg[actual].classList.add('actual');
     }
     BigWindow();
@@ -84,31 +103,26 @@ const bigImg=document.querySelector('.big-img');
 const title=document.querySelector('.title');
 const paragraph=document.querySelector('.description');
 
-function BigWindow(){
-    bigImg.src=images[actual].image;
-    title.innerHTML=images[actual].title;
-    paragraph.innerHTML=images[actual].text;
-}
-
 //cambio immagine con il click
 for (let index = 0; index < SmallImg.length; index++) {
     SmallImg[index].addEventListener('click',function(){
-        clearInterval(stop);
-        resetAutoPlay();
+        clearInterval(AutoStop);
+        Bigs[bigAc].classList.remove('big-actual')
         SmallImg[actual].classList.remove('actual');
         actual=index;
+        bigAc=index;
+        Bigs[bigAc].classList.add('big-actual')
         SmallImg[actual].classList.add('actual');
         BigWindow();
     })
 }
-let stop;
+let AutoStop;
 function AutoPlay(){
-    const standby=setInterval(Down,5000);
-    stop=standby;
+    const standby = setInterval(Down,5000);
+    AutoStop = standby;
 }
-
 setTimeout(AutoPlay,10000);
 
-function resetAutoPlay(){
-    setTimeout(AutoPlay,10000);
-}
+//extra play-stop button
+let direction=1;
+document.getElementById('stop-play').addEventListener('click',function(){})
