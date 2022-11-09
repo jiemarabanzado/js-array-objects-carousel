@@ -2,5 +2,59 @@
     padding: 0;
     box-sizing: border-box;
     margin: 0;
-    background-color: pink;
+    
+}
+.carousel-container{
+    
+    margin: auto;
+    padding-top: 150px;
+    max-width: 750px;
+}
+.carousel{
+    display: flex;
+    background-color: aqua;
+    height: 400px;
+}
+/*left side carousel------------------------*/
+.left-carousel{
+    width: 76%;
+    height: 100%;
+    background-color: blue;
+}
+.big-image{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.big-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.rel-text{
+    background-color: bisque;
+    width: 80%;
+    height: 20%;
+    position: absolute;
+    bottom: 6%;
+    left: 14%;
+
+}
+/*right side carousel--------------------------*/
+.right-carousel{
+    width: 24%;
+    height: 100%;
+    background-color: blueviolet;
+}
+
+.small-image{
+    background-color: bisque;
+    width: 100%;
+    height: calc(100%/5);
+}
+.small-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
 }
