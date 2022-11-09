@@ -72,7 +72,6 @@ function Down(){
         SmallImg[actual].classList.add('actual');
         Bigs[bigAc].classList.add('big-actual');
     }
-    BigWindow();
 }
 function Up(){
     if(actual==0){
@@ -91,10 +90,11 @@ function Up(){
         Bigs[bigAc].classList.add('big-actual');
         SmallImg[actual].classList.add('actual');
     }
-    BigWindow();
 }
 document.getElementById('up').addEventListener('click',Up)
 document.getElementById('down').addEventListener('click',Down)
+document.getElementById('up').addEventListener('click',Stop)
+document.getElementById('down').addEventListener('click',Stop)
 
 //cambio dell'immagine principale
 const bigImg=document.querySelector('.big-img');
@@ -104,7 +104,7 @@ const paragraph=document.querySelector('.description');
 //cambio immagine con il click
 for (let index = 0; index < SmallImg.length; index++) {
     SmallImg[index].addEventListener('click',function(){
-        clearInterval(AutoStop);
+        Stop();
         Bigs[bigAc].classList.remove('big-actual')
         SmallImg[actual].classList.remove('actual');
         actual=index;
@@ -114,13 +114,72 @@ for (let index = 0; index < SmallImg.length; index++) {
         BigWindow();
     })
 }
-let AutoStop;
-function AutoPlay(){
-    const standby = setInterval(Down,5000);
-    AutoStop = standby;
+let AutoStopDown;
+let AutoStopUp;
+function AutoPlayDown(){
+    const standby = setInterval(Down,4000);
+    AutoStopDown = standby;
 }
-setTimeout(AutoPlay,10000);
+function AutoPlayUp(){
+    const standby = setInterval(Up,4000);
+    AutoStopUp = standby;
+}
+setTimeout(AutoPlayDown,5000);
 
 //extra play-stop button
-let direction=1;
-document.getElementById('stop-play').addEventListener('click',function(){})
+let direction='down';
+let CurrentState='play';
+function Play(){
+    if(CurrentState!='play'){
+        document.getElementById('play').style.display='none';
+        document.getElementById('stop').style.display='inline-block';
+        clearInterval(AutoStopUp);
+        clearInterval(AutoStopDown);
+        CurrentState='play'
+        if(direction=='down'){
+            AutoPlayDown();
+        }else{
+            AutoPlayUp();
+        }
+
+    }
+}
+function Stop(){
+    if(CurrentState!='stop'){
+        clearInterval(AutoStopUp);
+        clearInterval(AutoStopDown);
+        document.getElementById('play').style.display='inline-block';
+        document.getElementById('stop').style.display='none';
+        CurrentState='stop';
+    }
+}
+function Back(){
+    if(direction!='up'){
+        clearInterval(AutoStopUp);
+        clearInterval(AutoStopDown);
+        if(CurrentState=='stop'){
+            CurrentState='play'
+            document.getElementById('play').style.display='none';
+            document.getElementById('stop').style.display='inline-block';
+        }
+        AutoPlayUp();
+        direction='up'
+    }
+}
+function Forward(){
+    if(direction!='down'){
+        clearInterval(AutoStopUp);
+        clearInterval(AutoStopDown);
+        if(CurrentState=='stop'){
+            CurrentState='play'
+            document.getElementById('play').style.display='none';
+            document.getElementById('stop').style.display='inline-block';
+        }
+        AutoPlayDown();
+        direction='down'
+    }
+}
+document.getElementById('play').addEventListener('click',Play);
+document.getElementById('stop').addEventListener('click',Stop);
+document.getElementById('back').addEventListener('click',Back);
+document.getElementById('forward').addEventListener('click',Forward);
