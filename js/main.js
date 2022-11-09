@@ -93,10 +93,22 @@ function BigWindow(){
 //cambio immagine con il click
 for (let index = 0; index < SmallImg.length; index++) {
     SmallImg[index].addEventListener('click',function(){
+        clearInterval(stop);
+        resetAutoPlay();
         SmallImg[actual].classList.remove('actual');
         actual=index;
         SmallImg[actual].classList.add('actual');
         BigWindow();
     })
+}
+let stop;
+function AutoPlay(){
+    const standby=setInterval(Down,5000);
+    stop=standby;
+}
 
+setTimeout(AutoPlay,10000);
+
+function resetAutoPlay(){
+    setTimeout(AutoPlay,10000);
 }
