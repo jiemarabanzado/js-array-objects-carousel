@@ -59,6 +59,7 @@
 .small-image{
     width: 100%;
     height: calc(100%/5);
+    opacity: 0.8;
 }
 .small-img{
     width: 100%;
@@ -66,19 +67,26 @@
     object-fit: cover; 
 }
 .btn{
-    padding: 5px;
-    border-radius: 40%;
+    width: 50px;
+
+    border-radius: 5px;
     border: none;
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
 }
 #up{
     position: absolute;
-    top: 1%;
-    left: 43%;
+    top: 2%;
+    left: 39%;
 }
 #down{
     position: absolute;
-    bottom: 1%;
-    left: 43%;
+    bottom: 2%;
+    left: 39%;
+}
+
+/*classi di modifica*/
+.actual{
+    transform: scale(0.95);
+    opacity: 1;
 }
