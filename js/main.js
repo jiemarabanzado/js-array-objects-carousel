@@ -26,14 +26,14 @@ const RightCar=document.querySelector('.right-carousel');
 LeftCar.innerHTML=`
         <div class="big-image">
             <img class="big-img" src="img/01.webp" alt="">
-        <div class="rel-text">
-            <h2 class="title">
-                Marvel's Spiderman Miles Morales
-            </h2>
-            <p class="description">
-                Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.
-            </p>
-        </div>
+            <div class="rel-text">
+                <h2 class="title">
+                     Marvel's Spiderman Miles Morales
+                </h2>
+                <p class="description">
+                    Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.
+                </p>
+            </div>
         </div>
 `
 
@@ -61,6 +61,7 @@ function Down(){
         actual+=1,
         SmallImg[actual].classList.add('actual');
     }
+    BigWindow();
 }
 function Up(){
     if(actual==0){
@@ -73,6 +74,29 @@ function Up(){
         actual-=1,
         SmallImg[actual].classList.add('actual');
     }
+    BigWindow();
 }
 document.getElementById('up').addEventListener('click',Up)
 document.getElementById('down').addEventListener('click',Down)
+
+//cambio dell'immagine principale
+const bigImg=document.querySelector('.big-img');
+const title=document.querySelector('.title');
+const paragraph=document.querySelector('.description');
+
+function BigWindow(){
+    bigImg.src=images[actual].image;
+    title.innerHTML=images[actual].title;
+    paragraph.innerHTML=images[actual].text;
+}
+
+//cambio immagine con il click
+for (let index = 0; index < SmallImg.length; index++) {
+    SmallImg[index].addEventListener('click',function(){
+        SmallImg[actual].classList.remove('actual');
+        actual=index;
+        SmallImg[actual].classList.add('actual');
+        BigWindow();
+    })
+
+}
