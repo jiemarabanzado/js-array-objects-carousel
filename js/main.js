@@ -21,3 +21,58 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
+const LeftCar=document.querySelector('.left-carousel');
+const RightCar=document.querySelector('.right-carousel');
+LeftCar.innerHTML=`
+        <div class="big-image">
+            <img class="big-img" src="img/01.webp" alt="">
+        <div class="rel-text">
+            <h2 class="title">
+                Marvel's Spiderman Miles Morales
+            </h2>
+            <p class="description">
+                Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.
+            </p>
+        </div>
+        </div>
+`
+
+for (let index = 0; index < images.length; index++) {
+    const element = images[index];
+    RightCar.innerHTML+=`
+            <div class="small-image">
+                <img class="small-img" src="${element.image}" alt="">
+            </div>
+    ` 
+}
+let actual=0;
+const SmallImg=document.querySelectorAll('.small-image');
+SmallImg[0].classList.add('actual');
+
+//funzionamento dei bottoni scorrimento
+function Down(){
+    if(actual==SmallImg.length-1){
+        SmallImg[actual].classList.remove('actual');
+        actual=0;
+        SmallImg[actual].classList.add('actual');
+
+    }else{
+        SmallImg[actual].classList.remove('actual');
+        actual+=1,
+        SmallImg[actual].classList.add('actual');
+    }
+}
+function Up(){
+    if(actual==0){
+        SmallImg[actual].classList.remove('actual');
+        actual=SmallImg.length-1;
+        SmallImg[actual].classList.add('actual');
+
+    }else{
+        SmallImg[actual].classList.remove('actual');
+        actual-=1,
+        SmallImg[actual].classList.add('actual');
+    }
+}
+document.getElementById('up').addEventListener('click',Up)
+document.getElementById('down').addEventListener('click',Down)
